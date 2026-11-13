@@ -43,7 +43,6 @@
       line-height: 1.5;
     }
 
-    /* Celestial Twinkling Background */
     #starfield {
       position: fixed;
       inset: 0;
@@ -90,7 +89,6 @@
       box-shadow: 0 20px 50px rgba(0, 4, 18, 0.55);
     }
 
-    /* ================= AUTH VIEW ================= */
     .auth-wrapper {
       position: relative;
       z-index: 1;
@@ -105,18 +103,18 @@
       width: 100%;
       max-width: 430px;
       border-radius: var(--radius-lg);
-      padding: 36px 30px;
+      padding: 34px 28px;
     }
 
     .brand-header {
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .brand-emblem {
       width: 54px;
       height: 54px;
-      margin: 0 auto 14px;
+      margin: 0 auto 12px;
       border-radius: 16px;
       display: grid;
       place-items: center;
@@ -192,7 +190,7 @@
     }
 
     .field-group {
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
     .field-group label {
@@ -274,14 +272,31 @@
       cursor: not-allowed;
     }
 
-    .auth-footnote {
+    .switch-link {
       text-align: center;
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
-    /* ================= DASHBOARD VIEW ================= */
+    .switch-link button {
+      background: none;
+      border: none;
+      color: var(--accent-bright);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 0.85rem;
+    }
+
+    .auth-footnote {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      opacity: 0.85;
+    }
+
     .app-shell {
       position: relative;
       z-index: 1;
@@ -350,7 +365,6 @@
       font-size: 0.86rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .ghost-btn:hover {
@@ -358,7 +372,6 @@
       border-color: var(--border-glow);
     }
 
-    /* Overview Grid: Storage Ring + Upload Zone */
     .overview-grid {
       display: grid;
       grid-template-columns: 340px 1fr;
@@ -471,7 +484,6 @@
       color: var(--text-muted);
     }
 
-    /* Upload Card */
     .upload-card {
       border-radius: var(--radius-lg);
       padding: 24px;
@@ -492,7 +504,6 @@
       justify-content: center;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .dropzone.dragover {
@@ -543,7 +554,6 @@
       transition: width 0.25s ease;
     }
 
-    /* Controls Bar */
     .controls-bar {
       display: flex;
       align-items: center;
@@ -571,7 +581,6 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      transition: all 0.2s ease;
     }
 
     .filter-pill .count-badge {
@@ -610,10 +619,6 @@
       outline: none;
     }
 
-    .search-box input:focus {
-      border-color: var(--accent);
-    }
-
     .search-box svg {
       position: absolute;
       left: 13px;
@@ -622,7 +627,6 @@
       color: var(--text-muted);
     }
 
-    /* Separate Media Sections */
     .vault-section {
       margin-bottom: 30px;
     }
@@ -663,15 +667,8 @@
     .item-card {
       border-radius: var(--radius-md);
       overflow: hidden;
-      transition: transform 0.18s ease, border-color 0.2s ease;
       display: flex;
       flex-direction: column;
-    }
-
-    .item-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--border-glow);
-      background: var(--bg-card-hover);
     }
 
     .item-thumb {
@@ -760,7 +757,6 @@
       font-size: 0.88rem;
     }
 
-    /* Preview Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -827,25 +823,700 @@
       </div>
 
       <div class="auth-tabs" role="tablist">
-        <button type="button" class="auth-tab active" data-mode="login">Sign In</button>
-        <button type="button" class="auth-tab" data-mode="signup">Create Account</button>
+        <button type="button" id="tab-login" class="auth-tab active">Login</button>
+        <button type="button" id="tab-signup" class="auth-tab">Sign Up</button>
       </div>
 
       <div id="auth-message" class="status-banner hidden" role="alert"></div>
 
-      <form id="auth-form" novalidate>
-        <div class="field-group hidden" id="name-group">
-          <label for="full-name">Display Name</label>
-          <input type="text" id="full-name" placeholder="e.g. Alex" autocomplete="name" />
+      <!-- LOGIN FORM -->
+      <form id="login-form" novalidate>
+        <div class="field-group">
+          <label for="login-identifier">Email or Phone Number</label>
+          <input type="text" id="login-identifier" placeholder="you@example.com or 9876543210" autocomplete="username" required />
         </div>
 
         <div class="field-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required />
-        </div>
-
-        <div class="field-group">
-          <label for="password">Password</label>
+          <label for="login-password">Password</label>
           <div class="password-wrap">
-            <input type="password" id="password" placeholder="Minimum 6 characters" minlength="6" required />
-            <button type="button" id="toggle-password" class="icon-btn" aria-label
+            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" required />
+            <button type="button" class="icon-btn toggle-pw" data-target="login-password" aria-label="Show password">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="login-submit-btn" class="primary-btn">Login</button>
+      </form>
+
+      <!-- SIGN UP FORM -->
+      <form id="signup-form" class="hidden" novalidate>
+        <div class="field-group">
+          <label for="signup-name">Name</label>
+          <input type="text" id="signup-name" placeholder="Your full name" autocomplete="name" required />
+        </div>
+
+        <div class="field-group">
+          <label for="signup-phone">Phone Number</label>
+          <input type="tel" id="signup-phone" placeholder="e.g. 9876543210" autocomplete="tel" required />
+        </div>
+
+        <div class="field-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+
+        <div class="field-group">
+          <label for="signup-password">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="signup-password" placeholder="Minimum 6 characters" minlength="6" autocomplete="new-password" required />
+            <button type="button" class="icon-btn toggle-pw" data-target="signup-password" aria-label="Show password">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="signup-submit-btn" class="primary-btn">Create Account</button>
+      </form>
+
+      <p class="switch-link" id="switch-text">
+        New here? <button type="button" id="switch-to-signup">Create an account</button>
+      </p>
+      <p class="auth-footnote">Limited to 10 accounts · 1 GB cloud storage per user</p>
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD VIEW ================= -->
+  <main id="dashboard-view" class="app-shell hidden">
+    <header class="topbar glass">
+      <div class="topbar-brand">
+        <div class="topbar-logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+          </svg>
+        </div>
+        <span class="topbar-name">ARCHIVES</span>
+      </div>
+
+      <div class="topbar-user">
+        <span id="user-badge" class="user-pill">Loading...</span>
+        <button type="button" id="signout-btn" class="ghost-btn">Sign Out</button>
+      </div>
+    </header>
+
+    <section class="overview-grid">
+      <div class="storage-card glass">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#60a5fa" />
+                <stop offset="100%" stop-color="#818cf8" />
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="80" cy="80" r="68" />
+            <circle id="storage-ring" class="ring-progress" cx="80" cy="80" r="68" />
+          </svg>
+          <div class="ring-center">
+            <span id="storage-percent" class="ring-percent">0%</span>
+            <span class="ring-label">Used</span>
+          </div>
+        </div>
+
+        <div id="storage-used-text" class="storage-numbers">0 MB / 1.00 GB</div>
+        <div id="storage-free-text" class="storage-sub">1.00 GB available</div>
+
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <strong id="stat-images">0</strong>
+            <span>Images</span>
+          </div>
+          <div class="mini-stat">
+            <strong id="stat-videos">0</strong>
+            <span>Videos</span>
+          </div>
+          <div class="mini-stat">
+            <strong id="stat-files">0</strong>
+            <span>Files</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="upload-card glass">
+        <div id="dash-message" class="status-banner hidden" role="alert"></div>
+
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload files">
+          <div class="dropzone-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <h2>Drop photos, videos, or files here</h2>
+          <p>Or click to browse from your device. Every account includes 1 GB of private storage.</p>
+          <input type="file" id="file-input" class="hidden" multiple />
+        </div>
+
+        <div id="upload-progress-wrap" class="upload-progress-wrap hidden">
+          <div style="display:flex;justify-content:space-between;font-size:0.83rem;color:var(--text-muted);">
+            <span id="upload-status-text">Uploading...</span>
+            <span id="upload-percent-text">0%</span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="upload-progress-bar" class="progress-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls-bar">
+      <div class="filter-pills" role="tablist" aria-label="Filter media">
+        <button type="button" class="filter-pill active" data-filter="all">
+          All <span class="count-badge" id="badge-all">0</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="image">
+          Images <span class="count-badge" id="badge-image">0</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="video">
+          Videos <span class="count-badge" id="badge-video">0</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="file">
+          Files <span class="count-badge" id="badge-file">0</span>
+        </button>
+      </div>
+
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="search" id="search-input" placeholder="Search your vault..." />
+      </div>
+    </div>
+
+    <section id="section-image" class="vault-section">
+      <div class="section-header">
+        <h2 class="section-title">Images <span class="section-count" id="sec-count-image">0</span></h2>
+      </div>
+      <div id="grid-image" class="items-grid"></div>
+    </section>
+
+    <section id="section-video" class="vault-section">
+      <div class="section-header">
+        <h2 class="section-title">Videos <span class="section-count" id="sec-count-video">0</span></h2>
+      </div>
+      <div id="grid-video" class="items-grid"></div>
+    </section>
+
+    <section id="section-file" class="vault-section">
+      <div class="section-header">
+        <h2 class="section-title">Files <span class="section-count" id="sec-count-file">0</span></h2>
+      </div>
+      <div id="grid-file" class="items-grid"></div>
+    </section>
+  </main>
+
+  <div id="preview-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-box glass">
+      <div class="modal-top">
+        <strong id="modal-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Preview</strong>
+        <button type="button" id="modal-close" class="ghost-btn">Close</button>
+      </div>
+      <div id="modal-media" class="modal-media"></div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://krwjwvqpmrjmbielkvso.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_kSHSelYHznz_KzLqkFgjgw_5x0RcH0d';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const QUOTA_BYTES = 1024 * 1024 * 1024;
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 68;
+
+    let currentUser = null;
+    let currentFilter = 'all';
+    let allItems = [];
+
+    (function initStars() {
+      const canvas = document.getElementById('starfield');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const count = Math.min(130, Math.floor((canvas.width * canvas.height) / 11000));
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.4,
+          alpha: Math.random() * 0.7 + 0.2,
+          speed: (Math.random() * 0.012 + 0.004) * (Math.random() < 0.5 ? 1 : -1)
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const s of stars) {
+          s.alpha += s.speed;
+          if (s.alpha > 0.95 || s.alpha < 0.15) s.speed *= -1;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(219, 234, 254, ${s.alpha.toFixed(2)})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      draw();
+    })();
+
+    function showBanner(elId, text, type = 'error') {
+      const el = document.getElementById(elId);
+      el.textContent = text;
+      el.className = `status-banner ${type}`;
+      el.classList.remove('hidden');
+    }
+
+    function hideBanner(elId) {
+      document.getElementById(elId).classList.add('hidden');
+    }
+
+    function normalizePhone(raw) {
+      return raw.replace(/\D/g, '');
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes) return '0 MB';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+      return (bytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
+    }
+
+    function getCategory(mime = '') {
+      if (mime.startsWith('image/')) return 'image';
+      if (mime.startsWith('video/')) return 'video';
+      return 'file';
+    }
+
+    const tabLogin = document.getElementById('tab-login');
+    const tabSignup = document.getElementById('tab-signup');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const switchText = document.getElementById('switch-text');
+
+    function setAuthMode(mode) {
+      const isLogin = mode === 'login';
+      tabLogin.classList.toggle('active', isLogin);
+      tabSignup.classList.toggle('active', !isLogin);
+      loginForm.classList.toggle('hidden', !isLogin);
+      signupForm.classList.toggle('hidden', isLogin);
+      hideBanner('auth-message');
+
+      switchText.innerHTML = isLogin
+        ? 'New here? <button type="button" id="switch-btn">Create an account</button>'
+        : 'Already have an account? <button type="button" id="switch-btn">Login</button>';
+      document.getElementById('switch-btn').addEventListener('click', () => {
+        setAuthMode(isLogin ? 'signup' : 'login');
+      });
+    }
+
+    tabLogin.addEventListener('click', () => setAuthMode('login'));
+    tabSignup.addEventListener('click', () => setAuthMode('signup'));
+    document.getElementById('switch-to-signup').addEventListener('click', () => setAuthMode('signup'));
+
+    document.querySelectorAll('.toggle-pw').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.target);
+        input.type = input.type === 'password' ? 'text' : 'password';
+      });
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideBanner('auth-message');
+
+      const identifier = document.getElementById('login-identifier').value.trim();
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-submit-btn');
+
+      if (!identifier || !password) {
+        showBanner('auth-message', 'Enter your email or phone number and password.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+
+      try {
+        let emailToUse = identifier;
+
+        if (!identifier.includes('@')) {
+          const cleanPhone = normalizePhone(identifier);
+          if (cleanPhone.length < 7) throw new Error('Enter a valid email or phone number.');
+
+          const { data: foundEmail, error: rpcErr } = await sb.rpc('get_email_by_phone', {
+            p_phone: cleanPhone
+          });
+
+          if (rpcErr) {
+            throw new Error('Phone login needs the SQL setup in Supabase first. Use Email for now.');
+          }
+          if (!foundEmail) {
+            throw new Error('No account found with that phone number.');
+          }
+          emailToUse = foundEmail;
+        }
+
+        const { error } = await sb.auth.signInWithPassword({
+          email: emailToUse,
+          password
+        });
+        if (error) throw error;
+      } catch (err) {
+        showBanner('auth-message', err.message || 'Login failed.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideBanner('auth-message');
+
+      const fullName = document.getElementById('signup-name').value.trim();
+      const rawPhone = document.getElementById('signup-phone').value.trim();
+      const cleanPhone = normalizePhone(rawPhone);
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const btn = document.getElementById('signup-submit-btn');
+
+      if (!fullName || cleanPhone.length < 7 || !email.includes('@') || password.length < 6) {
+        showBanner('auth-message', 'Fill in Name, valid Phone Number, Email, and 6+ character Password.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      try {
+        const { data, error } = await sb.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: fullName,
+              phone: cleanPhone
+            }
+          }
+        });
+        if (error) throw error;
+
+        if (data.user) {
+          await sb.from('profiles').upsert({
+            id: data.user.id,
+            full_name: fullName,
+            phone: cleanPhone,
+            email: email
+          });
+        }
+
+        if (!data.session) {
+          showBanner('auth-message', 'Account created! Check your email to confirm (or turn Confirm Email OFF in Supabase), then Login.', 'success');
+        }
+      } catch (err) {
+        showBanner('auth-message', err.message || 'Could not create account.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    });
+
+    document.getElementById('signout-btn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+    });
+
+    async function handleSession(session) {
+      const authView = document.getElementById('auth-view');
+      const dashView = document.getElementById('dashboard-view');
+
+      if (session?.user) {
+        currentUser = session.user;
+        authView.classList.add('hidden');
+        dashView.classList.remove('hidden');
+        const label = currentUser.user_metadata?.full_name || currentUser.email;
+        document.getElementById('user-badge').textContent = label;
+        await loadVault();
+      } else {
+        currentUser = null;
+        allItems = [];
+        dashView.classList.add('hidden');
+        authView.classList.remove('hidden');
+      }
+    }
+
+    sb.auth.onAuthStateChange((_event, session) => handleSession(session));
+    sb.auth.getSession().then(({ data }) => handleSession(data.session));
+
+    async function loadVault() {
+      hideBanner('dash-message');
+      const { data, error } = await sb
+        .from('user_files')
+        .select('*')
+        .eq('user_id', currentUser.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        allItems = [];
+        renderVault();
+        showBanner('dash-message', 'Logged in! Run the Supabase SQL setup next to enable file storage.', 'error');
+        return;
+      }
+
+      allItems = data || [];
+      renderVault();
+    }
+
+    function updateStorageCircle(usedBytes, counts) {
+      const pct = Math.min(100, (usedBytes / QUOTA_BYTES) * 100);
+      const offset = RING_CIRCUMFERENCE - (pct / 100) * RING_CIRCUMFERENCE;
+      document.getElementById('storage-ring').style.strokeDashoffset = offset.toFixed(2);
+      document.getElementById('storage-percent').textContent = pct < 1 && pct > 0 ? '<1%' : `${Math.round(pct)}%`;
+      document.getElementById('storage-used-text').textContent = `${formatBytes(usedBytes)} / 1.00 GB`;
+      document.getElementById('storage-free-text').textContent = `${formatBytes(Math.max(0, QUOTA_BYTES - usedBytes))} available`;
+
+      document.getElementById('stat-images').textContent = counts.image;
+      document.getElementById('stat-videos').textContent = counts.video;
+      document.getElementById('stat-files').textContent = counts.file;
+
+      document.getElementById('badge-all').textContent = allItems.length;
+      document.getElementById('badge-image').textContent = counts.image;
+      document.getElementById('badge-video').textContent = counts.video;
+      document.getElementById('badge-file').textContent = counts.file;
+    }
+
+    function renderVault() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const buckets = { image: [], video: [], file: [] };
+      let totalBytes = 0;
+
+      for (const item of allItems) {
+        totalBytes += Number(item.size_bytes || 0);
+        const cat = getCategory(item.mime_type);
+        if (!query || item.file_name.toLowerCase().includes(query)) {
+          buckets[cat].push(item);
+        }
+      }
+
+      const fullCounts = {
+        image: allItems.filter((i) => getCategory(i.mime_type) === 'image').length,
+        video: allItems.filter((i) => getCategory(i.mime_type) === 'video').length,
+        file: allItems.filter((i) => getCategory(i.mime_type) === 'file').length
+      };
+      updateStorageCircle(totalBytes, fullCounts);
+
+      ['image', 'video', 'file'].forEach((type) => {
+        const sec = document.getElementById(`section-${type}`);
+        const grid = document.getElementById(`grid-${type}`);
+        const countEl = document.getElementById(`sec-count-${type}`);
+        const list = buckets[type];
+
+        sec.classList.toggle('hidden', currentFilter !== 'all' && currentFilter !== type);
+        countEl.textContent = list.length;
+
+        if (!list.length) {
+          grid.innerHTML = `<div class="empty-state glass">No ${type}s in this section yet.</div>`;
+          return;
+        }
+
+        grid.innerHTML = list.map((item) => {
+          const ext = (item.file_name.split('.').pop() || 'file').slice(0, 6);
+          const thumb = type === 'image' && item.signed_url
+            ? `<img src="${item.signed_url}" alt="${item.file_name}" loading="lazy" />`
+            : type === 'video'
+              ? `<span style="font-size:2rem;color:var(--accent-bright);">▶</span>`
+              : `<span style="font-size:1.8rem;color:var(--accent-bright);">📄</span>`;
+
+          return `
+            <article class="item-card glass">
+              <div class="item-thumb" onclick="openPreview('${item.id}')">
+                ${thumb}
+                <span class="file-type-pill">${ext}</span>
+              </div>
+              <div class="item-body">
+                <div class="item-name" title="${item.file_name}">${item.file_name}</div>
+                <div class="item-meta">${formatBytes(item.size_bytes)} · ${new Date(item.created_at).toLocaleDateString()}</div>
+                <div class="item-actions">
+                  <button type="button" class="mini-btn" onclick="downloadItem('${item.id}')">Download</button>
+                  <button type="button" class="mini-btn delete" onclick="deleteItem('${item.id}')">Delete</button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+      });
+    }
+
+    document.querySelectorAll('.filter-pill').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.filter;
+        document.querySelectorAll('.filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+        renderVault();
+      });
+    });
+
+    document.getElementById('search-input').addEventListener('input', renderVault);
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    async function handleFiles(fileList) {
+      const files = Array.from(fileList || []);
+      if (!files.length) return;
+
+      const usedBytes = allItems.reduce((sum, i) => sum + Number(i.size_bytes || 0), 0);
+      const batchBytes = files.reduce((sum, f) => sum + f.size, 0);
+      if (usedBytes + batchBytes > QUOTA_BYTES) {
+        showBanner('dash-message', 'Upload exceeds your 1.00 GB personal storage limit.', 'error');
+        return;
+      }
+
+      const wrap = document.getElementById('upload-progress-wrap');
+      const bar = document.getElementById('upload-progress-bar');
+      const statusTxt = document.getElementById('upload-status-text');
+      const pctTxt = document.getElementById('upload-percent-text');
+      wrap.classList.remove('hidden');
+
+      try {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          statusTxt.textContent = `Uploading ${file.name} (${i + 1}/${files.length})`;
+          pctTxt.textContent = '0%';
+          bar.style.width = '0%';
+
+          const { data: signed, error } = await sb.functions.invoke('storage-api', {
+            body: {
+              action: 'get-upload-url',
+              fileName: file.name,
+              fileSize: file.size,
+              mimeType: file.type || 'application/octet-stream'
+            }
+          });
+
+          if (error || !signed?.uploadUrl) {
+            throw new Error(error?.message || 'Storage backend is not connected yet.');
+          }
+
+          await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', signed.uploadUrl);
+            xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+            xhr.upload.onprogress = (ev) => {
+              if (ev.lengthComputable) {
+                const p = Math.round((ev.loaded / ev.total) * 100);
+                bar.style.width = p + '%';
+                pctTxt.textContent = p + '%';
+              }
+            };
+            xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error('Upload failed')));
+            xhr.onerror = () => reject(new Error('Network error during upload'));
+            xhr.send(file);
+          });
+        }
+
+        showBanner('dash-message', 'Upload complete!', 'success');
+        await loadVault();
+      } catch (err) {
+        showBanner('dash-message', err.message, 'error');
+      } finally {
+        wrap.classList.add('hidden');
+        fileInput.value = '';
+      }
+    }
+
+    async function getSignedDownloadUrl(itemId) {
+      const { data, error } = await sb.functions.invoke('storage-api', {
+        body: { action: 'get-download-url', fileId: itemId }
+      });
+      if (error || !data?.downloadUrl) throw new Error(error?.message || 'Could not fetch file URL.');
+      return data.downloadUrl;
+    }
+
+    async function openPreview(itemId) {
+      const item = allItems.find((i) => i.id === itemId);
+      if (!item) return;
+
+      const modal = document.getElementById('preview-modal');
+      const media = document.getElementById('modal-media');
+      document.getElementById('modal-title').textContent = item.file_name;
+      media.innerHTML = '<span style="color:var(--text-muted)">Loading preview...</span>';
+      modal.classList.remove('hidden');
+
+      try {
+        const url = await getSignedDownloadUrl(itemId);
+        const cat = getCategory(item.mime_type);
+        if (cat === 'image') {
+          media.innerHTML = `<img src="${url}" alt="${item.file_name}" />`;
+        } else if (cat === 'video') {
+          media.innerHTML = `<video src="${url}" controls autoplay></video>`;
+        } else {
+          media.innerHTML = `<div style="text-align:center;padding:24px;"><p style="margin-bottom:14px;">Preview not available for this file type.</p><a href="${url}" target="_blank" rel="noopener" class="primary-btn" style="text-decoration:none;width:auto;">Open / Download</a></div>`;
+        }
+      } catch (err) {
+        media.innerHTML = `<span style="color:#fecaca">${err.message}</span>`;
+      }
+    }
+
+    async function downloadItem(itemId) {
+      try {
+        const url = await getSignedDownloadUrl(itemId);
+        window.open(url, '_blank', 'noopener');
+      } catch (err) {
+        showBanner('dash-message', err.message, 'error');
+      }
+    }
+
+    async function deleteItem(itemId) {
+      if (!confirm('Delete this file permanently?')) return;
+      try {
+        const { error } = await sb.functions.invoke('storage-api', {
+          body: { action: 'delete-file', fileId: itemId }
+        });
+        if (error) throw error;
+        await loadVault();
+      } catch (err) {
+        showBanner('dash-message', err.message || 'Delete failed.', 'error');
+      }
+    }
+
+    document.getElementById('modal-close').addEventListener('click', () => {
+      document.getElementById('preview-modal').classList.add('hidden');
+      document.getElementById('modal-media').innerHTML = '';
+    });
+  </script>
+</body>
+</html>
